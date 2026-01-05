@@ -68,9 +68,8 @@ const cardVariants = {
 
 const StatsSection = () => {
   return (
-    // Changed from a <section> with an id to a <div> to be nested within the "About" section.
-    // This ensures the scroll-spy considers it part of "About".
-    <div className="page-section stats-section">
+    // Render as a simple section block; outer wrappers control padding/scroll behavior.
+    <div className="stats-section">
       <motion.h2
         className="stats-title"
         initial={{ opacity: 0, y: 50 }}

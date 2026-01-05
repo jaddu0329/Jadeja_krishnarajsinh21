@@ -5,8 +5,8 @@ import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } fr
 import './App.css';
 
 // --- Import local assets ---
-import cinematicLandscape from './assets/cinematic-landscape.jpg'; // NOTE: Create an 'assets' folder in 'src' and place your image here.
-import myPhoto from './assets/my-photo.jpg';
+import cinematicLandscape from './assets/cinematic-landscape.png'; // NOTE: Create an 'assets' folder in 'src' and place your image here.
+import myPhoto from './assets/my-photo.png';
 import SocialIcons from './components/SocialIcons'; // Import the new SocialIcons component
 import StatsSection from './components/StatsSection'; // Import the new StatsSection component
 import SplashScreen from './components/SplashScreen';
@@ -579,7 +579,12 @@ function App() {
               </motion.div>
             </div>
 
-            {/* Achievements moved below the gallery hero */}
+          </SectionTransition>
+
+          <SectionDivider />
+
+          {/* Achievements as its own section below Gallery */}
+          <SectionTransition id="achievements" className="page-section">
             <StatsSection />
           </SectionTransition>
 
