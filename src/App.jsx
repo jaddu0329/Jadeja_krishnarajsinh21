@@ -124,6 +124,16 @@ function App() {
     };
   }, [loading]);
 
+  // On initial load (after splash), jump to the Gallery section
+  useEffect(() => {
+    if (!loading) {
+      const el = document.getElementById('gallery');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [loading]);
+
   // --- Hobbies Data ---
   const hobbies = [
     { icon: '🎧', text: 'Listening to Music', url: 'https://youtu.be/BWczaSneA0Q?si=8QLNnUKb27yYjyWp' },
@@ -519,9 +529,6 @@ function App() {
 
           {/* --- Gallery Section --- */}
           <SectionTransition id="gallery" className="page-section gallery-section">
-            {/* Achievements at the top */}
-            <StatsSection />
-            
             {/* Gallery Heading */}
             <motion.h2
               className="gallery-heading"
@@ -539,9 +546,9 @@ function App() {
                 src={cinematicLandscape}
                 alt="Featured gallery"
                 className="gallery-main-image"
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, ease: 'easeOut', type: 'tween' }}
+                initial={{ opacity: 0, scale: 1.06 }}
+                animate={{ opacity: 1, scale: [1.06, 1.02, 1.06] }}
+                transition={{ duration: 14, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
                 style={{ y: galleryImageParallaxY, willChange: 'opacity, transform' }}
               />
               {/* Cinematic overlay for readability */}
@@ -571,6 +578,9 @@ function App() {
                 </motion.button>
               </motion.div>
             </div>
+
+            {/* Achievements moved below the gallery hero */}
+            <StatsSection />
           </SectionTransition>
 
           <SectionDivider />
