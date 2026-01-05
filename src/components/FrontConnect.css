@@ -1,0 +1,28 @@
+/* src/components/FrontConnect.css */
+
+.front-connect {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.front-left { align-items: flex-start; text-align: left; }
+
+.front-caption {
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  margin: 0 0 0.2rem 0; /* left aligned, tight spacing */
+}
+
+.front-icons { display: inline-flex; align-items: center; gap: 0.8rem; flex-wrap: nowrap; }
+.front-large .interactive-icon { width: 64px; height: 64px; }
+.front-large .icon-img { width: 34px; height: 34px; }
+
+@media (max-width: 768px) {
+  .front-connect { align-items: center; }
+  .front-icons { justify-content: flex-start; overflow-x: auto; }
+  .front-large .interactive-icon { width: 60px; height: 60px; }
+  .front-large .icon-img { width: 32px; height: 32px; }
+}

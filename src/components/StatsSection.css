@@ -1,0 +1,80 @@
+/* src/components/StatsSection.css */
+.stats-section {
+  background: var(--bg-color);
+  text-align: center;
+  padding-bottom: 2rem;
+}
+
+.stats-title {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4rem;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2.5rem 1.5rem;
+  
+  /* Glassmorphism */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform, box-shadow, border-color;
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  color: var(--secondary); /* Cyan/Teal color for icon */
+  margin-bottom: 0.5rem;
+}
+
+.stat-number {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin: 0;
+  
+  /* Gradient text */
+  background: linear-gradient(90deg, #c084fc, #5eead4); /* Vibrant Purple to Cool Cyan */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stats-title {
+    font-size: 3rem;
+  }
+  .stats-container {
+    grid-template-columns: 1fr; /* Stack cards on mobile */
+  }
+  .stat-number {
+    font-size: 3.5rem;
+  }
+}

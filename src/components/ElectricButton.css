@@ -1,0 +1,183 @@
+/* src/components/ElectricButton.css */
+
+.electric-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 12px;
+  border: 0;
+  outline: none;
+  background: linear-gradient(180deg, #0f1220 0%, #131734 100%);
+  color: #e9f0ff;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  text-decoration: none; /* Remove underline for anchor variant */
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, filter 200ms ease-out;
+  will-change: transform, box-shadow, filter;
+  isolation: isolate; /* keep blend effects contained */
+}
+
+.electric-btn:hover,
+.electric-btn:focus {
+  text-decoration: none; /* Keep underline off on hover/focus */
+}
+
+/* Hobby variant: pill shape & spacing to match existing layout */
+.electric-btn.hobby-electric {
+  border-radius: 50px;
+  padding: 1.2rem 2.5rem;
+  font-weight: 500;
+}
+
+.electric-btn .electric-content {
+  position: relative;
+  z-index: 1;
+  text-decoration: none; /* Ensure inner text never underlines */
+}
+
+/* Soft inner glow + subtle border when active */
+.electric-btn.electric-active {
+  transform: scale(1.05);
+  box-shadow:
+    inset 0 0 14px rgba(94, 227, 255, 0.18),
+    inset 0 0 22px rgba(167, 139, 250, 0.12),
+    0 0 0 1px rgba(94, 227, 255, 0.16);
+}
+
+/* Outer electric outline using pseudo-elements */
+/* Premium static highlight ring */
+.electric-btn::before,
+.electric-btn::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity, filter;
+}
+
+/* Gradient ring around border using mask to keep stroke only */
+.electric-btn::before {
+  padding: 2px; /* ring thickness */
+  background: linear-gradient(135deg, var(--electric-blue, #5EE3FF), var(--electric-purple, #A78BFA));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  filter: blur(6px) saturate(120%);
+  mix-blend-mode: screen;
+}
+
+/* Soft outer glow */
+.electric-btn::after {
+  background: radial-gradient(120% 120% at 50% 50%, rgba(94,227,255,0.18), rgba(167,139,250,0.14) 35%, transparent 70%);
+  filter: blur(10px);
+  mix-blend-mode: screen;
+}
+
+.electric-btn.electric-active::before,
+.electric-btn.electric-active::after { opacity: 1; }
+
+/* Remove spark layers: using static highlight only */
+
+/* Thunder Lightning Overlay */
+.electric-btn .lightning {
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  will-change: opacity, filter;
+}
+
+.electric-btn .lightning-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.electric-btn .bolt {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  stroke-dasharray: 6 14;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
+}
+
+.electric-btn .bolt-a {
+  stroke: var(--electric-blue, #5EE3FF);
+  filter: drop-shadow(0 0 6px rgba(94,227,255,0.55));
+  animation: boltFlashA var(--electric-speed-a, 160ms) steps(1, end) infinite,
+             boltDashA var(--electric-speed-a, 160ms) linear infinite;
+  animation-delay: var(--electric-delay-a, 40ms);
+}
+
+.electric-btn .bolt-b {
+  stroke: var(--electric-purple, #A78BFA);
+  filter: drop-shadow(0 0 7px rgba(167,139,250,0.6));
+  animation: boltFlashB var(--electric-speed-b, 140ms) steps(1, end) infinite,
+             boltDashB var(--electric-speed-b, 140ms) linear infinite;
+  animation-delay: var(--electric-delay-b, 30ms);
+}
+
+.electric-btn .bolt-c {
+  stroke: var(--electric-blue, #5EE3FF);
+  filter: drop-shadow(0 0 6px rgba(94,227,255,0.5));
+  animation: boltFlashC var(--electric-speed-c, 180ms) steps(1, end) infinite,
+             boltDashC var(--electric-speed-c, 180ms) linear infinite;
+  animation-delay: var(--electric-delay-c, 50ms);
+}
+
+@keyframes boltFlashA {
+  0% { opacity: 0.0; }
+  12% { opacity: 0.8; }
+  19% { opacity: 0.3; }
+  33% { opacity: 0.95; }
+  47% { opacity: 0.35; }
+  68% { opacity: 0.85; }
+  86% { opacity: 0.5; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes boltFlashB {
+  0% { opacity: 0.0; }
+  10% { opacity: 0.75; }
+  18% { opacity: 0.28; }
+  29% { opacity: 0.92; }
+  44% { opacity: 0.32; }
+  61% { opacity: 0.88; }
+  80% { opacity: 0.48; }
+  100% { opacity: 0.68; }
+}
+
+@keyframes boltFlashC {
+  0% { opacity: 0.0; }
+  14% { opacity: 0.85; }
+  22% { opacity: 0.3; }
+  36% { opacity: 0.96; }
+  51% { opacity: 0.34; }
+  70% { opacity: 0.9; }
+  88% { opacity: 0.52; }
+  100% { opacity: 0.72; }
+}
+
+@keyframes boltDashA { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -20; } }
+@keyframes boltDashB { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -18; } }
+@keyframes boltDashC { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -22; } }
+
+/* Accessibility & mobile safety */
+@media (prefers-reduced-motion: reduce) {
+  .electric-btn .bolt { animation: none !important; }
+}
+@media (hover: none), (pointer: coarse) {
+  .electric-btn .lightning { display: none !important; }
+}
+
+/* No flicker keyframes; static highlight only */
+/* Lightning overlay removed for highlight variant */
+  animation-delay: var(--electric-delay-b, 30ms);

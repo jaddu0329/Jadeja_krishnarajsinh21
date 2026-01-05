@@ -1,0 +1,45 @@
+/* src/components/ContactDetails.css */
+
+.contact-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.2rem;
+}
+
+.contact-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(10, 15, 25, 0.8));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  text-decoration: none; /* no underline */
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, border-color 0.18s ease-out;
+  will-change: transform, box-shadow, border-color;
+}
+
+.contact-item:hover {
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.22);
+}
+
+.contact-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 3px rgba(124, 58, 237, 0.35));
+  transition: transform 140ms ease-out;
+  will-change: transform;
+}
+.contact-item:hover .contact-icon { transform: scale(1.16); }
+
+/* No visible text; icons only */
+
+@media (max-width: 480px) {
+  .contact-item { width: 48px; height: 48px; }
+  .contact-icon { width: 22px; height: 22px; }
+}

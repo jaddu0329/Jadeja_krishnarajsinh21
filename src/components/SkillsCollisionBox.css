@@ -1,0 +1,236 @@
+/* c:\Users\Dell\my-portfolio\src\components\SkillsCollisionBox.css */
+
+.skills-section {
+  /* Inherits from .page-section, but can add specific overrides */
+  padding: 80px 0; /* Remove horizontal padding so box can span fully */
+  min-height: 80vh; /* Ensure enough space for floating icons */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* For absolute positioning of particles */
+  overflow: hidden; /* Keep particles inside */
+}
+
+.skills-title {
+  font-weight: 900;
+  margin-bottom: 4rem;
+  text-align: center;
+  line-height: 1.03;
+  letter-spacing: 0.6px;
+  font-size: clamp(3.75rem, 8vw, 6.75rem);
+}
+
+.skills-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  max-width: 900px;
+  margin: -2rem auto 2rem auto; /* pull closer to title, add space before box */
+  line-height: 1.7;
+  will-change: transform, opacity;
+}
+
+.skills-title-prefix {
+  color: var(--text-main);
+  margin-right: 0.6rem;
+}
+
+.skills-title-accent {
+  /* Gradient text for the word "Skills" */
+  background: linear-gradient(90deg, #7C3AED 0%, #5EEAD4 50%, #A855F7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+}
+
+.skills-collision-box {
+  position: relative;
+  width: calc(100% - 8rem); /* shrink from both sides */
+  max-width: 1400px;
+  height: 600px; /* simulation area */
+  margin: 0 auto; /* center horizontally */
+  background-color: #000; /* Pure black background */
+  border-radius: 24px; /* Rounded corners */
+  border: 1px solid;
+  border-image: linear-gradient(45deg, var(--primary), var(--secondary)) 1; /* Subtle neon border */
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 40px rgba(94, 234, 212, 0.2); /* Neon glow */
+  overflow: hidden; /* Keep icons inside */
+  box-sizing: border-box;
+  padding: 0; /* icons cover full area */
+}
+
+.skill-particle-physics {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px; /* Corresponds to ICON_SIZE in JS */
+  height: 100px; /* Corresponds to PARTICLE_TOTAL_HEIGHT in JS */
+  text-align: center;
+  pointer-events: auto; /* Allow hover events */
+  cursor: pointer;
+  will-change: transform, opacity, z-index; /* Optimize for animation */
+}
+
+.skill-interactive {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
+}
+
+.skill-hover-glow {
+  position: absolute;
+  inset: -6px; /* soft ring around the icon */
+  border-radius: 16px;
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.45);
+  opacity: 0; /* animated via Framer Motion (opacity only) */
+  pointer-events: none;
+}
+
+/* Opacity-only glow to avoid layout shifts */
+.skill-interactive:hover .skill-hover-glow {
+  opacity: 1;
+}
+
+.skill-icon-container {
+  width: 70px; /* ICON_SIZE */
+  height: 70px; /* ICON_SIZE */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Circular icons */
+  background: rgba(255, 255, 255, 0.05); /* Subtle background for icons */
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.2); /* Subtle glow for icons */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-icon { /* This class is already used in the component */
+  width: 50px; /* Adjust icon size within container */
+  height: 50px;
+  object-fit: contain;
+}
+
+.skill-label {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Hover effects */
+/* Hover effects handled by Framer Motion via transform + opacity only */
+
+/* Static grid for reduced motion / mobile */
+.skills-static-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.static-skill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+.static-skill-item .skill-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.static-skill-item .skill-label {
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .skills-section {
+    padding: 50px 1rem;
+    min-height: auto;
+  }
+  .skills-title {
+    font-size: clamp(2.75rem, 10vw, 4.25rem);
+    margin-bottom: 2rem;
+  }
+  .skills-subtitle {
+    margin: -1rem auto 1.5rem auto;
+  }
+  .skills-collision-box {
+    width: calc(100% - 2rem);
+    height: 420px; /* moderate on mobile */
+    margin: 0 auto;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(124, 58, 237, 0.2), 0 0 20px rgba(94, 234, 212, 0.1);
+  }
+  .skill-particle-physics {
+    width: 60px; /* Adjusted for smaller screen */
+    height: 90px; /* Adjusted for smaller screen */
+  }
+  .skill-icon-container {
+    width: 60px;
+    height: 60px;
+  }
+  .skill-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .skill-label {
+    font-size: 0.75rem;
+  }
+  .skills-static-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 15px;
+  }
+  .static-skill-item .skill-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-title {
+    font-size: 2.5rem;
+  }
+  .skills-subtitle {
+    margin: -0.8rem auto 1rem auto;
+  }
+  .skills-collision-box {
+    width: calc(100% - 1rem);
+    height: 320px;
+    margin: 0 auto;
+  }
+  .skill-particle-physics {
+    width: 50px;
+    height: 80px;
+  }
+  .skill-icon-container {
+    width: 50px;
+    height: 50px;
+  }
+  .skill-icon {
+    width: 35px;
+    height: 35px;
+  }
+}

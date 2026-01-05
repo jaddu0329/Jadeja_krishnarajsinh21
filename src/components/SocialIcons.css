@@ -1,0 +1,36 @@
+/*
+  Vertical fixed social icons on RIGHT side
+  Visible only on desktop / laptop
+*/
+
+@media (min-width: 1024px) {
+  .social-sidebar {
+    position: fixed;
+    top: 50%;
+    right: 25px;
+    transform: translateY(-50%);
+    z-index: 1000; /* Increased z-index for guaranteed visibility */
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Reduced gap for a more compact look */
+  }
+
+  .social-sidebar a {
+    font-size: 1.75rem;
+    color: #ffffff;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .social-sidebar a:hover {
+    transform: scale(1.2);
+    color: #8b5cf6; /* purple hover */
+  }
+}
+
+/* Hide on mobile */
+@media (max-width: 1023px) {
+  .social-sidebar {
+    display: none;
+  }
+}

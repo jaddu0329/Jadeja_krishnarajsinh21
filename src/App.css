@@ -1,0 +1,827 @@
+/* src/App.css */
+:root {
+  --bg-color: #000000;
+  --primary: #7C3AED; /* Neon Purple */
+  --secondary: #5EEAD4; /* Cyan/Teal */
+  --text-main: #ffffff;
+  --text-muted: #9ca3af;
+  --card-bg: #111111;
+  --card-border: #333333;
+}
+
+/* Background Radial Gradient */
+.app-container {
+  min-height: 100vh;
+  /* Centered purple glow behind the hero text */
+  background: radial-gradient(circle at 25% 55%, rgba(124, 58, 237, 0.15), transparent 40%);
+  position: relative;
+  width: 100%;
+}
+
+/* --- Navbar --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Fixed height is helpful for centering */
+  display: flex;
+  align-items: center;
+  /* Keep space-between so logo stays left and any potential right-item stays right */
+  justify-content: space-between; 
+  padding: 0 4rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 50;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-logo-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: relative; /* For the underline pseudo-element */
+  display: inline-block; /* To allow transform */
+  text-decoration: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-item:hover {
+  color: var(--secondary);
+  transform: scale(1.05);
+}
+
+.nav-item.active {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.nav-item:active {
+  transform: scale(0.95);
+  transition-duration: 0.1s;
+}
+
+/* Underline effect */
+.nav-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--secondary);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+  transform: scaleX(1);
+}
+
+.nav-item.active::after {
+  background-color: var(--text-main);
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #000;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.logo-circle:active {
+  transform: scale(0.9);
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.5px;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center; /* Vertically center content */
+  /* 
+    Add 80px top padding to push content below the fixed navbar.
+    box-sizing: border-box ensures this padding is within the 100vh,
+    so flexbox correctly centers content in the remaining vertical space.
+    Horizontal padding (4rem) aligns content with the navbar's padding.
+  */
+  padding: 80px 4rem 0;
+  box-sizing: border-box;
+  scroll-margin-top: 80px; /* Offset for fixed navbar */
+}
+
+/* Performance hints for animated elements */
+.hero-greeting,
+.hero-name,
+.subtitle,
+.typing-container,
+.tag-chip,
+.card,
+.hero-right {
+  will-change: transform, opacity;
+}
+
+
+.hero-left {
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* New Hero Title Styling */
+.hero-title-container {
+  margin-bottom: 1.5rem; /* Keeps spacing consistent with other elements */
+}
+
+.hero-greeting {
+  font-size: 2.5rem;
+  font-weight: 300; /* Thin/regular weight */
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1;
+}
+
+.hero-name {
+  font-size: 6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -2px; /* Tightens up the letters for a modern look */
+  
+  /* Neon purple gradient for the name */
+  background: linear-gradient(90deg, #A78BFA, #7C3AED);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Subtle purple glow effect */
+  text-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
+}
+
+.hero-underline {
+  width: 150px;
+  height: 3px;
+  background-color: var(--text-main);
+  margin-top: 1.25rem; /* Space between name and underline */
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Underline glow */
+  transform-origin: left; /* Ensures scaleX animates from left to right */
+  will-change: transform;
+}
+
+/* Subtitle: Frontend Developer | ... */
+.subtitle {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  gap: 10px; /* Controls space around the pipes */
+  font-size: 1.1rem;
+  color: var(--secondary);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-shadow: 0 0 15px rgba(94, 234, 212, 0.2);
+}
+
+/* Typing Effect & Description */
+.typing-container {
+  font-size: 1.25rem;
+  color: #e5e5e5;
+  min-height: 80px; /* Pre-allocate space */
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 90%;
+}
+
+/* Style for the new animated typing text */
+.typing-container .typing-text {
+  color: #a5b4fc; /* A slightly lighter, more readable blue/purple for typed text */
+}
+
+/* Info Cards */
+.info-cards {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem; /* Add vertical space before the social icons */
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background-color: var(--secondary);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Tag Chips */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.tag-chip {
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  min-width: 180px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h3 {
+  font-size: 0.8rem;
+  color: var(--primary); /* Purple icon/title color */
+  margin: 0 0 0.4rem 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card p {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+/* Image Section */
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.image-wrapper {
+  width: 450px;
+  height: 550px;
+  position: relative;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  /* Grayscale + Contrast for the B&W look */
+  filter: grayscale(100%) contrast(1.1) brightness(0.9);
+  
+  /* Circular Fade Mask */
+  mask-image: radial-gradient(circle at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 70%);
+  
+  transition: filter 0.5s ease;
+}
+
+.profile-img:hover {
+  filter: grayscale(0%) contrast(1) brightness(1);
+}
+
+/* Splash Screen */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader-text {
+  margin-top: 1rem;
+  font-family: 'Inter', monospace;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Generic styles for other page sections */
+.page-section {
+  min-height: 60vh;
+  padding: 100px 4rem;
+  box-sizing: border-box;
+  scroll-margin-top: 80px; /* Offset for fixed navbar */
+}
+
+.page-section h2 {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+/* --- Section Divider --- */
+.section-divider {
+  width: 60%;
+  max-width: 400px; /* Not too wide */
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--primary), var(--secondary), transparent);
+  margin: 8rem auto; /* Generous vertical spacing */
+  opacity: 0.4; /* Subtle */
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+/* --- About Section (New Structure) --- */
+.about-parent-section {
+  /* This is the main container for the entire "About" experience */
+  position: relative;
+  background: radial-gradient(circle at 80% 20%, rgba(49, 22, 101, 0.2), #000000 50%);
+  scroll-margin-top: 0; /* The parent section starts at the very top */
+}
+
+.about-heading-viewport {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* For z-index stacking if needed */
+  z-index: 2;
+}
+
+.about-mega-heading {
+  font-size: clamp(5rem, 12vw, 12rem);
+; /* Large but balanced font size */
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+  text-align: center;
+  margin: 0;
+  color: var(--text-main);
+  white-space: nowrap; /* Ensures "ABOUT ME?" stays on one line on desktop */
+}
+
+.about-mega-heading .gradient-text {
+  background: linear-gradient(90deg, #A78BFA, #7C3AED);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
+}
+
+.about-animation-section {
+  height: 250vh; /* Provides scrollable area for the animation */
+  position: relative;
+  /* Add generous vertical spacing to separate from the heading above */
+  padding-top: 10rem;
+}
+
+.about-sticky-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.about-content-flex {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  /* Use center to allow the text box to shrink to its content height */
+  align-items: center;
+}
+
+.about-image-container {
+  /* Use flex to make the image container larger. Ratio is 1.3 : 1 */
+  flex: 1.3;
+  /* Make this a flex container to center the image inside */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  position: relative; /* Needed for x-transform to work correctly */
+}
+
+.about-image {
+  width: 100%;
+  /* Let the image fill the container's width but maintain its cinematic ratio */
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1);
+  /* Add rounded corners to match the text box */
+  border-radius: 20px;
+}
+
+.about-text-container {
+  /* The text container will take up 1 part of the flex space */
+  flex: 0.8;
+  max-width: 600px; /* Add a max-width for better control */
+  padding: 3rem; /* Reduce padding for a tighter feel */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  will-change: opacity, transform;
+  /* New: Add glassmorphism card styling */
+  background: rgba(17, 24, 39, 0.6); /* Dark bluish-black */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px; /* Adjust border-radius to be proportional */
+  /* Updated: Use the primary accent color for a subtle, premium border */
+  border: 1px solid rgba(124, 58, 237, 0.3); /* var(--primary) with 30% opacity */
+}
+
+.about-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-shadow: 0 0 25px rgba(124, 58, 237, 0.5);
+  margin: 0;
+}
+
+.about-description {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* --- Hobbies Section --- */
+.hobbies-section {
+  background: var(--bg-color); /* Simple black background */
+}
+
+.hobbies-title {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #A78BFA, #5EEAD4, #5EE3FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 4rem;
+  text-align: left; /* As requested */
+}
+
+.hobbies-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  gap: 1.5rem;
+  justify-content: flex-start; /* Align boxes to the start */
+}
+
+.hobby-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px; /* Pill shape */
+  position: relative; /* Needed for CTA shine overlay */
+  overflow: hidden;
+  
+  /* Glassmorphism feel */
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.7), rgba(10, 15, 25, 0.7));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 1.1rem;
+  cursor: default;
+  text-decoration: none; /* Ensure 'a' tags don't have underlines */
+  
+  /* Smooth transition for hover-off */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform, box-shadow, border-color;
+}
+
+/* CTA hover shine overlay element */
+.hobby-cta-shine {
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.0) 40%, rgba(255, 255, 255, 0.14) 50%, rgba(255, 255, 255, 0.0) 60%);
+  transform: translateX(-120%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hobby-box:hover .hobby-cta-shine {
+  animation: hobby-cta-shine 0.9s ease-out;
+}
+
+@keyframes hobby-cta-shine {
+  0% { transform: translateX(-120%); opacity: 0; }
+  15% { opacity: 0.25; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+
+/* --- Gallery Section --- */
+.gallery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: 2rem;
+}
+
+/* Gallery Heading Styles */
+.gallery-heading {
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  padding: 0 2rem;
+}
+
+.gallery-heading-accent {
+  background: linear-gradient(90deg, #7C3AED, #5EEAD4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gallery-image-wrapper {
+  position: relative;
+  /* Make the container full-width, breaking out of the parent padding */
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 85vh; /* Increased screen size feel */
+  border-radius: 0; /* No radius for a full-bleed element */
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  margin-top: 2rem;
+}
+
+.gallery-main-image {
+  position: absolute;
+  top: -25%; /* To allow for parallax movement up and down */
+  left: 0;
+  /* Taller than container for parallax effect */
+  width: 100%;
+  height: 150%; /* Taller than container for vertical movement */
+  display: block;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Cinematic dark overlay for readability */
+.gallery-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Text overlay container */
+.gallery-hero-content {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 4rem;
+  transform: translateY(-50%);
+  max-width: 720px;
+  color: #fff;
+  padding-right: 2rem;
+  will-change: transform, opacity;
+}
+
+.gallery-hero-title {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin: 0 0 1rem 0;
+}
+
+.gallery-hero-description {
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: #e5e5e5;
+  line-height: 1.7;
+  margin: 0 0 1.5rem 0;
+}
+
+.gallery-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.9rem 1.4rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: #ffffff;
+  color: #000;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+  transition: box-shadow 0.25s ease;
+}
+
+.gallery-hero-cta:hover {
+  box-shadow: 0 14px 28px rgba(124, 58, 237, 0.35);
+}
+
+/* Shine sweep overlay */
+.gallery-hero-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.0) 40%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.0) 60%);
+  transform: translateX(-100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.gallery-image-wrapper:hover .gallery-hero-shine {
+  animation: gallery-shine 1.2s ease-out;
+}
+
+@keyframes gallery-shine {
+  0% { transform: translateX(-100%); opacity: 0; }
+  10% { opacity: 0.3; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+/* Overlay button on gallery image */
+.gallery-view-all-btn {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 2;
+  padding: 0.9rem 1.4rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.85), rgba(10, 15, 25, 0.85));
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+  transition: box-shadow 0.3s ease;
+}
+
+.gallery-view-all-btn:hover {
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.35);
+}
+
+/* When a hobby box is a link, make the cursor a pointer */
+a.hobby-box {
+  cursor: pointer;
+}
+
+.hobby-icon {
+  font-size: 1.5rem;
+}
+
+/* Gradient text for hobby labels */
+.hobby-text {
+  background: linear-gradient(90deg, #A78BFA, #5EEAD4, #5EE3FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .navbar { padding: 1rem 2rem; }
+  .hero-section { padding: 6rem 2rem; flex-direction: column-reverse; text-align: center; justify-content: center; }
+  .hero-left { max-width: 100%; align-items: center; }
+  .nav-links { display: none; } /* Hide links on tablet/mobile */
+  .subtitle {
+    justify-content: center; /* Center items when they wrap on mobile */
+  }
+  .hobbies-title {
+    font-size: 3rem;
+    text-align: center; /* Center on mobile for better balance */
+  }
+  .hobbies-container {
+      justify-content: center; /* Center boxes on mobile */
+  }
+  .image-wrapper { width: 300px; height: 380px; margin-bottom: 2rem; }
+  /* On mobile, revert to a simple stacked layout */
+  .about-heading-viewport { height: 60vh; }
+  .about-mega-heading { font-size: clamp(5rem, 20vw, 8rem); }
+  .about-animation-section {
+    height: auto;
+    padding-top: 0;
+    padding-bottom: 100px;
+  }
+  .about-sticky-wrapper {
+    position: relative;
+    height: auto;
+  }
+  .about-content-flex {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .about-image-container {
+    width: 100%;
+    height: auto;
+    /* Important: Disable scroll-driven transforms on mobile */
+    transform: none !important;
+  }
+  .about-text-container {
+    width: 100%;
+    padding: 2rem;
+    /* Important: Disable scroll-driven transforms on mobile */
+    opacity: 1 !important;
+  }
+  /* Gallery on Mobile */
+  .gallery-heading {
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+  
+  .gallery-image-wrapper {
+    height: 60vh;
+    margin-top: 1.5rem;
+  }
+  
+  /* Disable parallax on mobile for performance */
+  .gallery-main-image {
+    transform: none !important;
+    top: 0;
+    height: 100%;
+  }
+  .info-cards { flex-direction: column; width: 100%; max-width: 300px; }
+  .card { width: 100%; }
+}
+
+/* Accessibility: Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .nav-item, .logo-circle, .card, .icon-link, .profile-img, .splash-screen, .orbit-loader {
+    transition: none !important;
+    animation: none !important;
+  }
+  .nav-item:hover, .nav-item:active, .logo-circle:active, .card:hover, .icon-link:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-name { font-size: 3.5rem; }
+  .hero-greeting { font-size: 1.8rem; }
+  .typing-container { font-size: 1rem; }
+  .about-heading { font-size: 2.5rem; }
+  .hobbies-title { font-size: 2.5rem; }
+  .hobby-box { padding: 1rem 2rem; font-size: 1rem; }
+}

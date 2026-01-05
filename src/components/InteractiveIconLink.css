@@ -1,0 +1,50 @@
+/* src/components/InteractiveIconLink.css */
+
+.interactive-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent; /* no glassy look */
+  border: none; /* no border */
+  color: #fff;
+  text-decoration: none;
+  transition: transform 140ms ease-out, filter 140ms ease-out;
+  will-change: transform, filter;
+  overflow: hidden; /* contain ripple */
+}
+
+.interactive-icon:hover { transform: scale(1.14); filter: drop-shadow(0 0 8px rgba(255,255,255,0.25)); }
+.interactive-icon:active { transform: scale(0.96); }
+
+.icon-img { width: 22px; height: 22px; object-fit: contain; transition: transform 140ms ease-out; will-change: transform; }
+.interactive-icon:hover .icon-img { transform: scale(1.18); }
+
+/* Ripple overlay (subtle glow ring only) */
+.icon-ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 50% 50%, rgba(124, 58, 237, 0.22), rgba(94, 234, 212, 0.15) 35%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.interactive-icon.pulse .icon-ripple { animation: icon-ripple-pulse 450ms ease-out; }
+
+@keyframes icon-ripple-pulse {
+  0% { opacity: 0; transform: scale(0.7); filter: blur(0px); }
+  15% { opacity: 0.55; transform: scale(0.9); filter: blur(1px); }
+  35% { opacity: 0.7; transform: scale(1.1); filter: blur(2px); }
+  70% { opacity: 0.3; transform: scale(1.3); filter: blur(3px); }
+  100% { opacity: 0; transform: scale(1.45); filter: blur(4px); }
+}
+
+@media (max-width: 480px) {
+  .interactive-icon { width: 44px; height: 44px; }
+  .icon-img { width: 24px; height: 24px; }
+}

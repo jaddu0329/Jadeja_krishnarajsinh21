@@ -1,0 +1,118 @@
+/* src/components/SkillsFloatingParticles.css */
+
+.skills-main-title {
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.skills-particle-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
+  margin: 0 auto;
+  
+  /* Pure black background */
+  background: #000000;
+  border-radius: 24px;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  
+  /* Subtle neon glow - static, not animated */
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.1), inset 0 0 20px rgba(124, 58, 237, 0.05);
+  
+  /* Layout context */
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* Remove animated border - using box-shadow instead */
+.skills-particle-container::before {
+  display: none;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.skill-particle {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.skill-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  transition: filter 0.3s ease;
+}
+
+.skill-particle:hover .skill-icon-img {
+  filter: brightness(1.3);
+}
+
+.skill-name-tooltip {
+  position: absolute;
+  bottom: -30px;
+  background-color: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+}
+
+.skill-particle:hover .skill-name-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Static Grid for Reduced Motion */
+.skills-static-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.static-skill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.static-skill-name {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .skills-main-title { font-size: 3rem; }
+  .skills-particle-container { height: 400px; }
+  
+  /* Disable floating particles on mobile for performance */
+  .skill-particle {
+    position: static;
+    display: inline-flex;
+    width: 80px;
+    height: 80px;
+  }
+}
