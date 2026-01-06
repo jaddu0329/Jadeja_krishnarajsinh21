@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import './ResumeSection.css';
 
 const ResumeSection = () => {
-  const resumeUrl = 'https://drive.google.com/uc?export=download&id='; // TODO: put your resume file URL here
+  // Place a file at public/resume.pdf or replace with your actual resume URL
+  const resumeUrl = '/resume.pdf';
 
   const containerVariants = {
     hidden: {},
@@ -49,11 +50,11 @@ const ResumeSection = () => {
       <motion.div className="resume-card" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
         <motion.h3 className="resume-name" variants={itemVariants}>Jadeja Krishnaraj</motion.h3>
         <motion.div className="resume-meta" variants={itemVariants}>
-          <span>B.Tech — Information Technology (IT)</span>
+          <span>🎓 B.Tech — Information Technology (IT)</span>
           <span>•</span>
-          <span>Gujarat, India</span>
+          <span>📍 Gujarat, India</span>
           <span>•</span>
-          <span>jkrishnaraj4@gmail.com</span>
+          <span>✉️ jkrishnaraj4@gmail.com</span>
         </motion.div>
         <motion.p className="resume-summary" variants={itemVariants}>
           Passionate Information Technology student with a strong foundation in web and application development. Skilled in frontend technologies, problem-solving, and building responsive, user-friendly digital experiences. Always eager to learn new technologies and apply them to real-world projects.
@@ -73,18 +74,18 @@ const ResumeSection = () => {
       <motion.div className="resume-education" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
         <div className="edu-card">
           <div className="edu-title">B.Tech in Information Technology (IT)</div>
-          <div className="edu-subtitle">AU — Atmiya University, Rajkot</div>
-          <div className="edu-duration">2023 — 2026</div>
+          <div className="edu-subtitle">AU – Atmiya University, Rajkot</div>
+          <div className="edu-duration">2023 – 2026</div>
         </div>
         <div className="edu-card">
           <div className="edu-title">Diploma in Information Technology (IT)</div>
-          <div className="edu-subtitle">GTU — L.E. College, Morbi</div>
-          <div className="edu-duration">2020 — 2023</div>
+          <div className="edu-subtitle">GTU – L.E. College, Morbi</div>
+          <div className="edu-duration">2020 – 2023</div>
         </div>
         <div className="edu-card">
           <div className="edu-title">Secondary (10th)</div>
           <div className="edu-subtitle">Nalanda Vidhyalaya</div>
-          <div className="edu-duration">2019 — 2020</div>
+          <div className="edu-duration">2019 – 2020</div>
         </div>
       </motion.div>
     </section>
