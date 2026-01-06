@@ -16,6 +16,7 @@ import SectionTransition from './components/SectionTransition';
 import ElectricButton from './components/ElectricButton';
 import ContactDetails from './components/ContactDetails';
 import ContactForm from './components/ContactForm';
+import ResumeSection from './components/ResumeSection';
 import FrontConnect from './components/FrontConnect';
 
 
@@ -595,14 +596,7 @@ function App() {
           <SectionDivider />
 
           <SectionTransition id="resume" className="page-section">
-            <motion.h2
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              Resume
-            </motion.h2>
+            <ResumeSection />
           </SectionTransition>
           <section id="contact" className="page-section">
             <motion.h2
