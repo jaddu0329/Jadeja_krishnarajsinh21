@@ -7,6 +7,7 @@
   justify-content: center;
   gap: 8px;
   padding: 14px 22px;
+  min-height: 44px; /* mobile-friendly target */
   border-radius: 12px;
   border: 0;
   outline: none;
@@ -19,6 +20,7 @@
   transition: transform 200ms ease-out, box-shadow 200ms ease-out, filter 200ms ease-out;
   will-change: transform, box-shadow, filter;
   isolation: isolate; /* keep blend effects contained */
+  touch-action: manipulation; /* faster taps on mobile */
 }
 
 .electric-btn:hover,
@@ -64,7 +66,7 @@
 /* Gradient ring around border using mask to keep stroke only */
 .electric-btn::before {
   padding: 2px; /* ring thickness */
-  background: linear-gradient(135deg, var(--electric-blue, #5EE3FF), var(--electric-purple, #A78BFA));
+  background: linear-gradient(135deg, var(--electric-blue, var(--secondary)), var(--electric-purple, var(--primary)));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -178,6 +180,18 @@
   .electric-btn .lightning { display: none !important; }
 }
 
-/* No flicker keyframes; static highlight only */
-/* Lightning overlay removed for highlight variant */
-  animation-delay: var(--electric-delay-b, 30ms);
+/* Mobile layout adjustments */
+@media (max-width: 520px) {
+  .electric-btn {
+    width: 100%;
+    padding: 16px 18px;
+    gap: 10px;
+    font-size: 1rem;
+    border-radius: 14px;
+  }
+  .electric-btn::before { filter: blur(5px) saturate(115%); }
+  .electric-btn::after { filter: blur(8px); }
+  .electric-btn.electric-active { transform: scale(1.02); }
+}
+
+/* End of file */
