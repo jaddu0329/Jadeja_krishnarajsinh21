@@ -374,7 +374,7 @@ function App() {
     <motion.div className="info-cards" variants={cardsContainerVariants}>
       <motion.div className="card" variants={scaleInVariant} whileHover={{ borderColor: '#7C3AED', y: -5 }}>
         <h3>📍 Location</h3>
-        <p>Surat, Gujarat, India</p>
+        <p>MORBI, Gujarat, India</p>
       </motion.div>
       <motion.div className="card" variants={scaleInVariant} whileHover={{ borderColor: '#5EEAD4', y: -5 }}>
         <h3>📞 Contact</h3>
