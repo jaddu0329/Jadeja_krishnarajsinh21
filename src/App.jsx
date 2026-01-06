@@ -124,10 +124,10 @@ function App() {
     };
   }, [loading]);
 
-  // On initial load (after splash), jump to the Gallery section
+  // On initial load (after splash), ensure we land on the Home section
   useEffect(() => {
     if (!loading) {
-      const el = document.getElementById('gallery');
+      const el = document.getElementById('home');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
