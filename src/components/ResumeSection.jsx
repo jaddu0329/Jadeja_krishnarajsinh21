@@ -1,10 +1,15 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import './ResumeSection.css';
 
 const ResumeSection = () => {
   // Place a file at public/resume.pdf or replace with your actual resume URL
   const resumeUrl = '/resume.pdf';
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start center', 'end center'] });
+  const titleScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
+  const titleGlow = useTransform(scrollYProgress, [0, 1], [0.25, 0.6]);
+  const titleShadow = useTransform(titleGlow, (v) => `0 0 40px rgba(124, 58, 237, ${v})`);
 
   const containerVariants = {
     hidden: {},
@@ -24,7 +29,7 @@ const ResumeSection = () => {
   };
 
   return (
-    <section id="resume" className="page-section resume-section">
+    <section id="resume" className="page-section resume-section" ref={sectionRef}>
       {/* Header + Download */}
       <div className="resume-header">
         <motion.h2
@@ -33,6 +38,7 @@ const ResumeSection = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="resume-title"
+          style={{ scale: titleScale, textShadow: titleShadow }}
         >
           My Resume
         </motion.h2>

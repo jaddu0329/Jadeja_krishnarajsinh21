@@ -3,6 +3,9 @@
   --bg-color: #000000;
   --primary: #7C3AED; /* Neon Purple */
   --secondary: #5EEAD4; /* Cyan/Teal */
+  /* RGB versions for effects */
+  --primary-rgb: 124, 58, 237;
+  --secondary-rgb: 94, 234, 212;
   --text-main: #ffffff;
   --text-muted: #9ca3af;
   --card-bg: #111111;
