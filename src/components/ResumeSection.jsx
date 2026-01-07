@@ -90,7 +90,7 @@ const ResumeSection = () => {
         </div>
         <div className="edu-card">
           <div className="edu-title">Secondary (10th)</div>
-          <div className="edu-subtitle">Nalanda Vidhyalaya</div>
+          <div className="edu-subtitle">Nalanda Vidhyalaya, Morbi</div>
           <div className="edu-duration">2019 – 2020</div>
         </div>
       </motion.div>
