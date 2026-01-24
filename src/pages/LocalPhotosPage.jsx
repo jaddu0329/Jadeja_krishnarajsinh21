@@ -1,22 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import galleryImage from '../assets/cinematic-landscape.png';
 
 const LocalPhotosPage = () => {
   const [photos, setPhotos] = React.useState([]);
 
   React.useEffect(() => {
-    try {
-      const raw = localStorage.getItem('galleryPhotos');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        const normalized = Array.isArray(parsed)
-          ? parsed.map((p) => (typeof p === 'string' ? { src: p } : p)).filter((p) => p && p.src)
-          : [];
-        setPhotos(normalized);
-      }
-    } catch (_) {
-      setPhotos([]);
-    }
+    setPhotos([{ src: galleryImage, title: 'Gallery Photo' }]);
   }, []);
 
   return (

@@ -532,7 +532,13 @@
   display: flex;
   flex-wrap: wrap; /* Allows wrapping on smaller screens */
   gap: 1.5rem;
-  justify-content: flex-start; /* Align boxes to the start */
+  /* Left-align by default; center on mobile via media query */
+  justify-content: flex-start;
+  /* Ensure no outer background/container styling */
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
 }
 
 .hobby-box {
@@ -735,6 +741,40 @@ a.hobby-box {
   cursor: pointer;
 }
 
+/* Ensure hobby pill buttons show only the inner rounded box with no fill */
+.electric-btn.hobby-electric {
+  background: transparent !important; /* remove dark fill */
+  box-shadow: none; /* remove extra glow by default */
+  border: 1px solid rgba(124, 58, 237, 0.30); /* subtle ring to preserve shape */
+  min-width: 260px; /* keep consistent width across labels */
+  white-space: nowrap; /* prevent text wrapping inside pills */
+}
+
+/* Optional: slightly brighten the ring on hover/focus */
+.electric-btn.hobby-electric:hover,
+.electric-btn.hobby-electric:focus {
+  border-color: #7C3AED;
+}
+
+/* Gentle idle ring + stronger active glow for engaging effect */
+.electric-btn.hobby-electric::before,
+.electric-btn.hobby-electric::after {
+  opacity: 0.16; /* faint ambient ring when idle */
+}
+.electric-btn.hobby-electric.electric-active::before,
+.electric-btn.hobby-electric.electric-active::after {
+  opacity: 1;
+  filter: blur(8px) saturate(120%);
+}
+.electric-btn.hobby-electric.electric-active {
+  transform: scale(1.03);
+  border-color: #7C3AED;
+  box-shadow:
+    inset 0 0 14px rgba(94, 227, 255, 0.18),
+    inset 0 0 22px rgba(167, 139, 250, 0.12),
+    0 0 26px rgba(124, 58, 237, 0.35);
+}
+
 .hobby-icon {
   font-size: 1.5rem;
 }
@@ -835,4 +875,207 @@ a.hobby-box {
   .about-heading { font-size: 2.5rem; }
   .hobbies-title { font-size: 2.5rem; }
   .hobby-box { padding: 1rem 2rem; font-size: 1rem; }
+}
+/* =============================================== */
+/* === MOBILE & RESPONSIVE STYLES              === */
+/* === Add this to the end of your App.css file === */
+/* =============================================== */
+
+/* --- General Breakpoint: Tablets and below (< 992px) --- */
+@media (max-width: 992px) {
+  .hero-section {
+    /* Change to vertical layout earlier for tablets */
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 2rem;
+    padding-top: 8rem; /* More space for navbar */
+  }
+
+  .hero-left,
+  .hero-right {
+    width: 100%;
+    max-width: 500px; /* Constrain width on tablet */
+    align-items: center;
+  }
+
+  .hero-title-container {
+    align-items: center;
+  }
+
+  .tags-container,
+  .info-cards,
+  .cta-row {
+    justify-content: center;
+  }
+
+  .front-connect {
+    justify-content: center;
+  }
+}
+
+/* --- General Breakpoint: Mobile devices (< 768px) --- */
+@media (max-width: 768px) {
+  body {
+    /* Adjust base font size for better readability on small screens */
+    font-size: 14px;
+  }
+
+  .page-section {
+    /* Reduce padding on mobile */
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  /* --- Navbar --- */
+  .navbar {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .nav-links {
+    /* A proper hamburger menu is the best solution, but for a quick fix,
+       we can hide the links to prevent layout breaking. */
+    display: none;
+  }
+
+  /* --- Hero Section --- */
+  .hero-section {
+    padding-top: 6rem;
+  }
+
+  .hero-left,
+  .hero-right {
+    max-width: 100%; /* Allow full width on mobile */
+  }
+
+  .hero-name {
+    font-size: clamp(2.25rem, 10vw, 3rem); /* Responsive font size */
+  }
+
+  .subtitle {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .subtitle span:nth-child(2),
+  .subtitle span:nth-child(4) {
+    display: none; /* Hide the "|" separators */
+  }
+
+  .info-cards {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  /* --- About Section --- */
+  .about-heading-viewport {
+    /* The JS change disables the complex animation, so we can hide the mega heading to simplify the view */
+    display: none;
+  }
+
+  .about-animation-section {
+    /* The JS change disables the scroll effect, so we make it a normal section */
+    height: auto;
+    padding-top: 4rem;
+  }
+
+  .about-sticky-wrapper {
+    position: static;
+    height: auto;
+  }
+
+  .about-content-flex {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .about-image-container {
+    width: 100%;
+    max-width: 350px; /* Limit image size */
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+  }
+
+  .about-text-container {
+    text-align: center;
+  }
+
+  .about-heading {
+    text-align: center;
+  }
+
+  /* --- Hobbies Section --- */
+  .hobbies-container {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .hobby-electric {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  /* --- Gallery Section --- */
+  .gallery-hero-title {
+    font-size: 1.75rem;
+  }
+  .gallery-hero-description {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+
+  /* --- Stats Section (from StatsSection.css) --- */
+  .stats-container {
+    grid-template-columns: 1fr; /* Stack cards vertically */
+    gap: 1.5rem;
+  }
+
+  /* --- Skills Section (for the static fallback) --- */
+  .skills-static-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* --- Resume Section (from ResumeSection.css) --- */
+  .resume-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .resume-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .resume-meta span:nth-child(2),
+  .resume-meta span:nth-child(4) {
+    display: none; /* Hide bullet points */
+  }
+
+  .resume-education {
+    grid-template-columns: 1fr;
+  }
+
+  /* --- Contact Section --- */
+  .contact-form {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .contact-details {
+    gap: 0.5rem; /* Reduce gap between social icons */
+  }
+
+  .contact-item {
+    transform: scale(0.9); /* Slightly smaller icons */
+  }
 }

@@ -31,8 +31,10 @@
 /* Hobby variant: pill shape & spacing to match existing layout */
 .electric-btn.hobby-electric {
   border-radius: 50px;
-  padding: 1.2rem 2.5rem;
+  padding: 1.2rem 1.5rem; /* Adjusted padding */
   font-weight: 500;
+  width: 220px; /* Set a fixed width */
+  justify-content: center; /* Center content */
 }
 
 .electric-btn .electric-content {

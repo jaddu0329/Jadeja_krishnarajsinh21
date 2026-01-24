@@ -5,8 +5,9 @@ import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } fr
 import './App.css';
 
 // --- Import local assets ---
-import cinematicLandscape from './assets/cinematic-landscape.png'; // NOTE: Create an 'assets' folder in 'src' and place your image here.
+import galleryHeroImage from './assets/gallery.png';
 import myPhoto from './assets/my-photo.png';
+import aboutMePhoto from './assets/cinematic-landscape.png'; // <-- You can change this path to a different image for the "About Me" section
 import SocialIcons from './components/SocialIcons'; // Import the new SocialIcons component
 import StatsSection from './components/StatsSection'; // Import the new StatsSection component
 import SplashScreen from './components/SplashScreen';
@@ -49,6 +50,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [startTyping, setStartTyping] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const navigate = useNavigate();
 
   // --- Navigation and Content Data ---
@@ -63,15 +65,20 @@ function App() {
     // Start when the top of the target hits the top of the viewport
     // End when the bottom of the target hits the bottom of the viewport
     offset: ["start start", "end end"],
+    // Disable the scroll listener on mobile to save performance and prevent layout shifts.
+    enabled: !isMobile && !shouldReduceMotion,
   });
 
   // Image transforms from fullscreen to half-screen
-  const imageScale = useTransform(scrollYProgress, [0, 0.4], shouldReduceMotion ? [1, 1] : [2, 1]);
-  const imageX = useTransform(scrollYProgress, [0, 0.4], shouldReduceMotion ? ['0vw', '0vw'] : ['25vw', '0vw']);
+  const imageScale = useTransform(scrollYProgress, [0, 0.4], [2, 1]);
+  const imageX = useTransform(scrollYProgress, [0, 0.4], ['25vw', '0vw']);
 
   // Text box fades and slides in after the image animation is mostly done
   const textOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
   const textX = useTransform(scrollYProgress, [0.5, 0.7], [50, 0]);
+
+  const aboutImageStyle = !isMobile && !shouldReduceMotion ? { scale: imageScale, x: imageX } : {};
+  const aboutTextStyle = !isMobile && !shouldReduceMotion ? { opacity: textOpacity, x: textX } : {};
 
   // --- Hooks for Gallery Parallax ---
   const galleryImageRef = useRef(null);
@@ -123,6 +130,12 @@ function App() {
     return () => {
       observer.disconnect();
     };
+  }, [loading]);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [loading]);
 
   // On initial load (after splash), ensure we land on the Home section
@@ -438,11 +451,11 @@ function App() {
                   {/* Left Side: Image */}
                   <motion.div
                     className="about-image-container"
-                    style={{ scale: imageScale, x: imageX }}
+                    style={aboutImageStyle}
                   >
                     <img
-                      src={cinematicLandscape}
-                      alt="Cinematic landscape"
+                      src={aboutMePhoto}
+                      alt="About portrait"
                       className="about-image"
                     />
                   </motion.div>
@@ -450,7 +463,7 @@ function App() {
                   {/* Right Side: Text */}
                   <motion.div
                     className="about-text-container"
-                    style={{ opacity: textOpacity, x: textX }}
+                    style={aboutTextStyle}
                   >
                     <h2 className="about-heading">
                       Who am I?
@@ -544,7 +557,7 @@ function App() {
             {/* Gallery Image */}
             <div className="gallery-image-wrapper" ref={galleryImageRef} onMouseMove={handleGalleryMouseMove} onMouseLeave={handleGalleryMouseLeave}>
               <motion.img
-                src={cinematicLandscape}
+                src={galleryHeroImage}
                 alt="Featured gallery"
                 className="gallery-main-image"
                 initial={{ opacity: 0, scale: 1.06 }}
